@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>iRemovalProWPF</AssemblyName>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <OutputType>WinExe</OutputType>
+    <UseWPF>True</UseWPF>
+    <TargetFramework>net472</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LangVersion>14.0</LangVersion>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <ApplicationDefinition Remove="iRemovalProWPF\App.xaml" />
+    <ApplicationDefinition Include="iRemovalProWPF\App.xaml" Generator="MSBuild:Compile" SubType="Designer" LogicalName="app.xaml" />
+    <Page Remove="iRemovalProWPF\MainWindow.xaml" />
+    <Page Include="iRemovalProWPF\MainWindow.xaml" Generator="MSBuild:Compile" SubType="Designer" LogicalName="mainwindow.xaml" />
+    <Resource Remove="resources\iremovalphone.image.png" />
+    <Resource Remove="resources\phonelogo.image.png" />
+    <Resource Remove="resources\plugdevice.image.png" />
+    <Resource Include="resources\iremovalphone.image.png" LogicalName="resources/iremovalphone.image.png" />
+    <Resource Include="resources\phonelogo.image.png" LogicalName="resources/phonelogo.image.png" />
+    <Resource Include="resources\plugdevice.image.png" LogicalName="resources/plugdevice.image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Management" />
+  </ItemGroup>
+</Project>

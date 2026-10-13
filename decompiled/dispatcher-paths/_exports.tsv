@@ -1,0 +1,8 @@
+address	name	created	hasCode	status	file
+1801b5c40	PATH_A	false	true	ok	PATH_A_1801b5c40.c
+1801b7320	PATH_B	false	true	ok	PATH_B_1801b7320.c
+1801b8e20	open_handle	false	true	ok	open_handle_1801b8e20.c
+1801b4670	validate	false	true	ok	validate_1801b4670.c
+1801b4460	get_obj	false	true	ok	get_obj_1801b4460.c
+1801b9270	check_conflict	false	true	ok	check_conflict_1801b9270.c
+1801b9200	get_list	false	true	ok	get_list_1801b9200.c

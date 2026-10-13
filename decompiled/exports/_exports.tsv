@@ -1,0 +1,4 @@
+address	name	created	hasCode	status	file
+180542810	Action	true	true	ok	Action_180542810.c
+180542b30	SetCallbacks	true	true	ok	SetCallbacks_180542b30.c
+180542b60	SetWinInfo	true	true	ok	SetWinInfo_180542b60.c

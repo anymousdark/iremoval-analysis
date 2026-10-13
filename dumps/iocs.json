@@ -1,0 +1,83 @@
+{
+  "$comment": "Indicadores extraidos estaticamente de iremovalpro.dll (iRemoval PRO Premium 5.2.1). Analise estatica apenas.",
+  "target": {
+    "product": "iRemoval PRO Premium Edition",
+    "version": "5.2.1",
+    "engine_assembly": "iremovalpro 1.0.0.0",
+    "engine_compiler": ".NET 8 NativeAOT",
+    "build_banner": "<-[Blackhound iRemovalPro Public build 0.7.1 @2022|]->",
+    "shell_assembly": "iRemovalProWPF 1.0.0.0",
+    "shell_runtime": ".NET Framework 4.7.2 WPF",
+    "shell_mvid": "41639d1a-eea6-4722-bb9a-ef15581e98b7"
+  },
+  "files": [
+    { "name": "iRemoval PRO.exe", "bytes": 2792448, "sha256_prefix": "07452a1e", "role": "shell-ofuscado" },
+    { "name": "iremovalpro.dll",  "bytes": 34363904, "sha256_prefix": "ver artefato", "role": "motor-nativo-x64" }
+  ],
+  "network": {
+    "hosts": ["iremovalpro.co", "iremovalpro.com", "s13.iremovalpro.com", "www.trustpilot.com"],
+    "endpoints": [
+      "https://iremovalpro.co",
+      "https://www.trustpilot.com/review/iremovalpro.co",
+      "https://iremovalpro.com/Payax0.php",
+      "https://s13.iremovalpro.com/pub.php",
+      "https://s13.iremovalpro.com/version33.txt",
+      "https://s13.iremovalpro.com/iremovalActivation/ars2.php",
+      "https://s13.iremovalpro.com/iremovalActivation/auth3.php",
+      "https://s13.iremovalpro.com/iremovalActivation/checkm8.php",
+      "https://s13.iremovalpro.com/iremovalActivation/iact9.php",
+      "https://s13.iremovalpro.com/iremovalActivation/mf5.php",
+      "https://s13.iremovalpro.com/iremovalActivation/mf6.php",
+      "https://s13.iremovalpro.com/iremovalActivation/mf7.php"
+    ],
+    "custom_headers": ["X-iRemovalPRO-Version"],
+    "contacts": ["support@iremovalpro.com", "t.me/iremoval..."],
+    "proxy_schemes": ["http", "https", "socks4", "socks4a", "socks5"]
+  },
+  "device_side": {
+    "injected_bundle_id": "com.iremovalpro.bypass",
+    "tunnel_tool": "ref/toolkits/ideviceproxy.exe",
+    "frameworks": [
+      "/System/Library/PrivateFrameworks/MobileActivation.framework/MobileActivation",
+      "/Library/Frameworks/CydiaSubstrate.framework/CydiaSubstrate"
+    ],
+    "hooked_class": "MobileActivationDaemon",
+    "hooked_selectors": [
+      "validateActivationDataSignature:activationSignature:withError:",
+      "handleActivationInfo:withCompletionBlock:",
+      "handleActivationInfoWithSession:activationSignature:completionBlock:"
+    ],
+    "hook_framework": "Logos/Theos (CydiaSubstrate)",
+    "entitlement_keys": [
+      "com.apple.mobileactivationd.spi",
+      "com.apple.mobileactivationd.device-identifiers",
+      "com.apple.private.MobileActivation",
+      "com.apple.dmd.operation.clear-activation-lock-bypass-code",
+      "com.apple.dmd.operation.fetch-activation-lock-bypass-code",
+      "systemgroup.com.apple.mobileactivationd"
+    ],
+    "paths": [
+      "/activation_records/activation_record.plist",
+      "/activation_records/",
+      "/private/var/logs/mobileactivationd_restore/",
+      "/Library/Logs/mobileactivationd/"
+    ],
+    "record_keys": [
+      "ActivationLock", "ActivationRecord", "ActivationPrivateKey",
+      "ActivationInfo", "ActivationRegulatoryVariant", "ActivationState",
+      "GetActivationRecord", "RequestActivationState",
+      "iRemovalRecord", "iRemovalSignature"
+    ]
+  },
+  "exports": {
+    "Action":              { "rva": "0x542810",  "va": "0x180542810" },
+    "SetCallbacks":        { "rva": "0x542b30",  "va": "0x180542b30" },
+    "SetWinInfo":          { "rva": "0x542b60",  "va": "0x180542b60" },
+    "DotNetRuntimeDebugHeader": { "rva": "0xfe60a0", "va": "0x180fe60a0", "note": "marcador NativeAOT, nao e API" }
+  },
+  "bundled_libraries": [
+    "SSH.NET", "RestSharp", "QRCoder", "Netimobiledevice",
+    "Newtonsoft-compat", "OpenSSL 3.0.8", "libimobiledevice"
+  ],
+  "third_party_markers": ["www.code-bude.net (QRCoder)", "openssh.com (SSH.NET)"]
+}
