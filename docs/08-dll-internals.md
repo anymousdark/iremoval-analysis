@@ -69,3 +69,13 @@ Destaques:
   acima foi validada por leitura direta, não pelo script).
 - `va-read.js` (Temp): VA→offset **só para seções mapeadas**.
 - `strings-at.js` (Temp): strings com offset + bytes vizinhos.
+- `entropy.js` (Temp): entropia de Shannon por bloco (caça blobs encriptados).
+
+## 6. Região de alta entropia (candidata a blob encriptado)
+
+Varrimento em blocos de 256 KB (`entropy.js`): média 6,814 bits/byte, com
+faixa contínua `0xD40000–0x1A00000` (~13 MB) a H≈7,95–8,0 — ou seja,
+aleatório/encriptado/comprimido. Cai sobre o fim de `.pdata` e a seção
+`` `RZ `` (nomes não-convencionais; `H=8,0` em `.pdata` é anómalo por si).
+Hipótese: store de payload/config encriptado. Por confirmar com carving
+dirigido (procurar headers conhecidos dentro da faixa).
