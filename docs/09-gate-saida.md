@@ -17,3 +17,11 @@ dispatcher). Sem dispositivo e sem licença válida, nenhum fluxo arranca.
 
 Ferramentas: `scripts/procmon-trace.ps1` (elevado, 1 clique UAC) +
 `scripts/dump-admin.ps1`. PML/CSV ficam em `dumps/procmon/` (fora do git).
+
+## Com iPhone ligado: nem toca no dispositivo
+
+Repetido o trace com iPhone emparelhado anexado (10.936 eventos, motor
+carregado): **zero** `usbmux`/`lockdown`/`idevice`/USB/TCP da app. O gate
+dispara antes de qualquer lógica de dispositivo — a presença do iPhone é
+irrelevante para a saída de 12s. Fluxos live exigem passar o gate primeiro;
+o gate é local e pré-rede (ver acima).

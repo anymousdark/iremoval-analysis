@@ -1,8 +1,8 @@
-start 2026-10-14T10:29:28.0667356+01:00
+start 2026-10-14T14:41:15.6829888+01:00
 admin=True
 procmon on
-app pid=2720
+app pid=6748
 app saiu sozinha
-pml MB=158.4
+pml MB=154.2
 csv existe=True
-end 2026-10-14T10:30:05.2782452+01:00
+end 2026-10-14T14:41:52.7415890+01:00
