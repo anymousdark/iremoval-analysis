@@ -94,21 +94,29 @@ if (iVar5 == 0) {
 
 ---
 
-## 5. Seção `hydrated`: código + objetos frozen
+## 5. Seção `hydrated`: só existe em runtime (correção)
 
-Os literais `0x180760738` (default do slot `+0x20`) e `0x1807d21d8`
-(arg do fail-fast) caem numa seção de nome **`hydrated`** e os primeiros
-bytes são **código x64**, não dados:
+A tabela de seções deste binário mostra:
 
 ```
-0x180760738: 48 83 c4 20 5f c3 …   (add rsp,20h; pop rdi; ret)
+hydrated  va=0x742000  vsz=0x2B25F8  rawsz=0x0  raw=0x0
 ```
 
-O default do slot de callback é portanto um **stub de retorno mínimo**
-(chamável pelos opcodes 8/10 sem efeito). Objetos managed "frozen"
-(MethodTables, strings com header) partilham a seção — é o heap congelado
-do NativeAOT, não `.rdata` convencional. Ferramenta: `va-read.js` (Temp;
-mapeia VA→offset via headers PE).
+2,8 MB **sem bytes no ficheiro** — materializada pelo loader (heap frozen
+do NativeAOT + relocações). Os literais `0x180760738` (default do slot
+`+0x20`), `0x1807d21d8` (arg do fail-fast) e as 6 strings de exceção da
+`configure` caem aqui (RVAs `0x76xxxx`–`0x7xxxxx` ∈ `hydrated`).
+
+Consequência honesta: **só os VALORES dos ponteiros são conhecidos
+estaticamente** (via pseudocode Ghidra); o conteúdo é runtime-only.
+Leituras byte-a-byte anteriores destes endereços via mapeamento ingénuo
+VA→ficheiro caíram em seções não relacionadas e ficam **retiradas**.
+
+Em compensação, os endpoints (`https://s13…`, `Payax0.php`, …) estão
+completos em UTF-16 na seção **`.rdata`** estática (ver `07` §1) — as
+leituras fragmentadas (`ars2.ph`) eram artefacto de scanner ASCII-stepped,
+não ofuscação. Ferramenta: `va-read.js` (Temp) continua válida para seções
+mapeadas (`.text`, `.rdata`, …).
 
 ---
 
