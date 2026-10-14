@@ -61,3 +61,13 @@ memória). Alvo futuro para sessão dinâmica com dispositivo.
   15 hits, todos abaixo de `0xD40000`) → encriptada ou packing custom, não compressão standard.
 - Falta para o decriptografador: modo, chave e IV. Vias: xref à S-box
   (precisa Ghidra analisado) ou extração em runtime (precisa app viva).
+
+## 8. Laboratório corrido: 0 hits (honesto)
+
+`scripts/decrypt-lab.js` (AES-128/192/256 × CBC/ECB/CTR × IV zeros/primeiro-bloco,
+300 chaves candidatas top-entropia do próprio DLL, score em 4 KB):
+`crypto-region.bin` (13 MB) → 0 hits; `bplist-enc.bin` (1 MB) → 0 hits.
+Sem vestígios de KDF (`PBKDF`/`Rfc2898`/`CreateDecryptor`: só ruído SSH/HTTP).
+Veredito: a chave não está crua no binário (derivada em runtime, partida/
+ofuscada, ou cifra custom) — nihil per staticam aqui. Destrava com: (a) app
+viva + extração da chave em memória, (b) xrefs à S-box em Ghidra com RAM.
