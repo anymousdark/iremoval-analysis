@@ -1,3 +1,11 @@
 dumps/mem/*.dmp
 iremoval-tools/downloads/
 
+
+dumps/procmon/
+
+
+iremoval-tools/dnspy/
+iremoval-tools/ilspy/
+iremoval-tools/ilspycmd/
+iremoval-tools/procmon/
