@@ -52,3 +52,12 @@ memória). Alvo futuro para sessão dinâmica com dispositivo.
 
 `find-pe.js`, `find-magic.js`, `carve.js`, `try-inflate.js` (Temp),
 `entropy.js` (Temp). Extrações: `dumps/bplist1.bin`, `dumps/bplist-enc.bin`.
+## 7. Decriptografador: algoritmo identificado, chave em aberto
+
+- AES em software PROVADO no motor: S-box (`63 7c 77…`) em ficheiro `0xa80814`
+  + inv-S-box em `0xa8091d` (`.rdata`). Sem ChaCha/TEA/SHA256-K.
+  Strings de modo (`AES-128-CBC` etc.) pertencem ao SSH.NET do túnel, não ao payload.
+- Região `0xD40000–0x1A00000` (~13 MB, H≈8.0) sem headers gzip/zlib (scan total:
+  15 hits, todos abaixo de `0xD40000`) → encriptada ou packing custom, não compressão standard.
+- Falta para o decriptografador: modo, chave e IV. Vias: xref à S-box
+  (precisa Ghidra analisado) ou extração em runtime (precisa app viva).
