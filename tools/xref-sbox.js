@@ -27,14 +27,18 @@ const targets = hexArgs.map(h => Number(h.startsWith("0x") ? h : "0x" + h));
 for (const t of targets) {
   const va = off2va(t);
   console.log(`\n== alvo off=0x${t.toString(16)} VA=0x${va.toString(16)} ==`);
+  const rvaT = va - imgBase; // RVA correto
   const immHits = [], ripNear = [];
   for (const s of secs) {
     const start = s.raw, end = Math.min(s.raw + s.rawSize, b.length);
     if (end - start < 8 || s.raw === 0) continue;
     const base = imgBase + s.vaddr - s.raw; // va = base + fileoff
-    // imm32 absoluto do valor VA (low 32 bits)
-    const tv = va >>> 0;
-    for (let i = start; i <= end - 4; i++) if (b.readUInt32LE(i) === tv) immHits.push({ sec: s.name, off: i });
+    // imm32: RVA do alvo OU low-32 da VA absoluta
+    for (let i = start; i <= end - 4; i++) {
+      const w = b.readUInt32LE(i);
+      if (w === (rvaT >>> 0)) immHits.push({ sec: s.name, off: i, kind: "RVA" });
+      else if (w === (va >>> 0)) immHits.push({ sec: s.name, off: i, kind: "low32" });
+    }
     // rip-relative: qualquer lea/mov com destino dentro de +/-0x800 da VA
     for (let i = start; i <= end - 7; i++) {
       let p = i, pre = 0;
@@ -48,6 +52,6 @@ for (const t of targets) {
     }
   }
   console.log(`imm32=${immHits.length} ripNear=${ripNear.length}`);
-  for (const h of immHits.slice(0, 20)) console.log(`  imm32 @${h.sec}:0x${h.off.toString(16)}`);
+  for (const h of immHits.slice(0, 20)) console.log(`  imm32[${h.kind}] @${h.sec}:0x${h.off.toString(16)}`);
   for (const h of ripNear.slice(0, 40)) console.log(`  ${h.op} @${h.sec}:0x${h.off.toString(16)} -> 0x${h.dest.toString(16)}`);
 }

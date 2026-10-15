@@ -4,8 +4,13 @@ const fs = require("fs");
 const [,, file, vaArg] = process.argv;
 const b = fs.readFileSync(file);
 const va = Number(vaArg.startsWith("0x") ? vaArg : "0x" + vaArg);
-const rva = (va >>> 0) >>> 0;
+// imageBase do header (PE32+ = 8 bytes @opt+24)
+const _lfa = b.readUInt32LE(0x3c), _coff = _lfa + 4, _opt = _coff + 20;
+const _magic = b.readUInt16LE(_opt);
+const imageBase = _magic === 0x20b ? Number(b.readBigUInt64LE(_opt + 24)) : b.readUInt32LE(_opt + 28);
+const rva = va - imageBase;               // RVA correto (não truncar p/ 32 bits)
 const pat4 = Buffer.alloc(4); pat4.writeUInt32LE(rva >>> 0);
+const pat4lo = Buffer.alloc(4); pat4lo.writeUInt32LE(va >>> 0); // low-32 da VA (caso raro)
 const pat8 = Buffer.alloc(8); pat8.writeBigUInt64LE(BigInt(va));
 
 function findAll(pat) {
@@ -13,8 +18,9 @@ function findAll(pat) {
   while (i !== -1) { out.push(i); i = b.indexOf(pat, i + 1); }
   return out;
 }
-console.log(`VA=0x${va.toString(16)} RVA=0x${rva.toString(16)}`);
+console.log(`VA=0x${va.toString(16)} imageBase=0x${imageBase.toString(16)} RVA=0x${rva.toString(16)}`);
 console.log("occ RVA(4B): " + findAll(pat4).map(x => "0x" + x.toString(16)).join(" "));
+console.log("occ low32(4B): " + findAll(pat4lo).map(x => "0x" + x.toString(16)).join(" "));
 console.log("occ VA(8B):  " + findAll(pat8).map(x => "0x" + x.toString(16)).join(" "));
 
 // parse .reloc

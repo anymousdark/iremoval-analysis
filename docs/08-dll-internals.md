@@ -48,6 +48,11 @@ Pseudocode em `decompiled/exports/`. É a fronteira inteira casca↔motor
 
 ## 4. Imports: superfície do sistema
 
+> **Corrigido em `docs/13` (2026-10-15):** a lista abaixo é de *strings*, não
+> da IAT real. A import table efetiva (data directory #1, em `.CJz`) tem
+> **1 função por DLL** (15 DLLs, 30 slots de IAT) — tabela reduzida/ofuscada.
+> Ver `docs/13` §2.
+
 Nativos (via descritores PE + strings): `kernel32`, `ntdll`, `user32`,
 `ws2_32`, `winhttp`, `bcrypt`, `advapi32`, `shell32`, `sspicli`, `ole32`,
 `psapi`, `FirewallAPI`, `Normaliz`, família `api-ms-win-crt-*`.
@@ -67,6 +72,7 @@ Destaques:
 - `pe-imp-exp.js` (Temp): exports/imports via data directories
   (cuidado: este binário tem layout de diretórios não-padrão; a tabela
   acima foi validada por leitura direta, não pelo script).
+  **Substituído por `tools/pe-imports.js` / `tools/pe-except.js` (ver `13`).**
 - `va-read.js` (Temp): VA→offset **só para seções mapeadas**.
 - `strings-at.js` (Temp): strings com offset + bytes vizinhos.
 - `entropy.js` (Temp): entropia de Shannon por bloco (caça blobs encriptados).

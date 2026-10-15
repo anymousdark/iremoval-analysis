@@ -16,10 +16,10 @@ Workspace de engenharia reversa estática do pacote
 | `artifacts/original/` | Binários originais como distribuídos (não modificar) |
 | `artifacts/patched/` | Cópias de trabalho com patches de análise (ex.: limpeza de `IMAGE_FILE_DLL`) |
 | `docs/` | Documentação técnica gerada — índice em §Documentação |
-| `decompiled/` | Saídas de decompilação: C# da casca, exports/dispatcher nativos, `ghidra/` |
+| `decompiled/` | Saídas de decompilação: C# da casca, exports/dispatcher nativos |
 | `dumps/` | Saídas de extração: strings, metadata de tabela CLI |
 | `evidence/` | Bundles exportados do REA (JSON determinístico) |
-| `ghidra-project/` | Projeto Ghidra headless (local, fora do git — DB binário regenerável; decompilações vão para `decompiled/ghidra/`) |
+| `ghidra-project/` | Projeto Ghidra headless (local, fora do git — DB binário regenerável) |
 | `notes/` | Observações de análise |
 | `tools/` | Scripts reutilizáveis de análise (Node, PowerShell, Ghidra) — ver `tools/README.md` |
 
@@ -40,6 +40,7 @@ Workspace de engenharia reversa estática do pacote
 | 10 | `docs/10-payloads.md` — Payloads embutidos: levantamento completo |
 | 11 | `docs/11-lockdown-fronteira.md` — Fronteira do lockdown (iPhone próprio, emparelhado) |
 | 12 | `docs/12-correcao-entropia.md` — **Correção**: a "região encriptada de 13 MB" não existe |
+| 13 | `docs/13-protecao-empacotador.md` — Camada de proteção (empacotador/ofuscador) e imports reais |
 
 ---
 

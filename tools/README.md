@@ -13,7 +13,10 @@ $node = 'C:\Users\p\AppData\Local\Programs\nodejs\node.exe'
 | Ficheiro | Uso |
 |---|---|
 | `pe-meta.js` | Metadata PE/CLI mínima: TypeRef + user strings (`#US`) |
-| `pe-imp-exp.js` | Tabelas de imports/exports da PE |
+| `pe-dirs.js` | Headers PE32+: secções + os 16 data directories, com RVA→secção resolvido |
+| `pe-imports.js` | Import table **real** (data dir #1): DLLs + funções — substitui `pe-imp-exp.js` |
+| `pe-except.js` | Tabela de exceções real (dir #3) vs. secção *nomeada* `.pdata` (deteta nomes enganosos) |
+| `pe-imp-exp.js` | (obsoleto) imports/exports — não lida com o layout de diretórios não-padrão |
 | `va-read.js` | Lê bytes por VA (resolve secção → offset de ficheiro) |
 | `checkcfg.js` | Valida/limpa JSONC (tira comentários e vírgulas finais) |
 
@@ -36,6 +39,7 @@ $node = 'C:\Users\p\AppData\Local\Programs\nodejs\node.exe'
 | `find-const.js` | Constantes cripto (S-box AES, K do SHA-256, sigma ChaCha) |
 | `try-inflate.js` | Tenta gunzip/inflate/`inflateRaw`/brotli sobre uma região |
 | `blob-stats.js` | Estatística de blob: entropia, blocos 16 B repetidos (detetor ECB), magias, histograma |
+| `seg-scan.js` | Varre uma região em blocos finos: entropia + heurística de código x86 (separa código de ruído/cifra) |
 
 ## Xrefs / cripto
 
