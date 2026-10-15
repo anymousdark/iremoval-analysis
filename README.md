@@ -15,12 +15,31 @@ Workspace de engenharia reversa estática do pacote
 |---|---|
 | `artifacts/original/` | Binários originais como distribuídos (não modificar) |
 | `artifacts/patched/` | Cópias de trabalho com patches de análise (ex.: limpeza de `IMAGE_FILE_DLL`) |
-| `docs/` | Documentação técnica gerada |
+| `docs/` | Documentação técnica gerada — índice em §Documentação |
+| `decompiled/` | Saídas de decompilação: C# da casca, exports/dispatcher nativos, `ghidra/` |
 | `dumps/` | Saídas de extração: strings, metadata de tabela CLI |
 | `evidence/` | Bundles exportados do REA (JSON determinístico) |
-| `ghidra-project/` | Projeto Ghidra headless |
+| `ghidra-project/` | Projeto Ghidra headless (local, fora do git — DB binário regenerável; decompilações vão para `decompiled/ghidra/`) |
 | `notes/` | Observações de análise |
 | `tools/` | Scripts reutilizáveis de análise (Node, PowerShell, Ghidra) — ver `tools/README.md` |
+
+---
+
+## Documentação
+
+| # | Documento |
+|---|---|
+| 01 | `docs/01-arquitetura.md` — Arquitetura do pacote |
+| 03 | `docs/03-api-nativa.md` — API nativa: `Action` / `SetCallbacks` / `SetWinInfo` |
+| 04 | `docs/04-contexto-execucao.md` — Motor de execução: contexto, rotas e tratamento de erro |
+| 05 | `docs/05-dispatcher.md` — Dispatcher: `get_context` / `configure` / `submit` / `after` |
+| 06 | `docs/06-csharp-fonte.md` — Código-fonte C# recuperado (casca) + memória |
+| 07 | `docs/07-ativacao.md` — Protocolo de ativação: estrutura + harness de captura |
+| 08 | `docs/08-dll-internals.md` — `iremovalpro.dll` por dentro: seções, entrada, imports/exports |
+| 09 | `docs/09-gate-saida.md` — Gate de saída: diálogo aos ~10s, `exit(1)` aos ~12s |
+| 10 | `docs/10-payloads.md` — Payloads embutidos: levantamento completo |
+| 11 | `docs/11-lockdown-fronteira.md` — Fronteira do lockdown (iPhone próprio, emparelhado) |
+| 12 | `docs/12-correcao-entropia.md` — **Correção**: a "região encriptada de 13 MB" não existe |
 
 ---
 

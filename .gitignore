@@ -12,3 +12,6 @@ iremoval-tools/procmon/
 
 dumps/crypto-region.bin
 dumps/blk-*.bin
+
+# projeto Ghidra local (DB binario regeneravel)
+ghidra-project/

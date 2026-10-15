@@ -35,6 +35,7 @@ $node = 'C:\Users\p\AppData\Local\Programs\nodejs\node.exe'
 | `find-magic.js` | Procura magias de ficheiro (`bplist`, zip, PNG, …) |
 | `find-const.js` | Constantes cripto (S-box AES, K do SHA-256, sigma ChaCha) |
 | `try-inflate.js` | Tenta gunzip/inflate/`inflateRaw`/brotli sobre uma região |
+| `blob-stats.js` | Estatística de blob: entropia, blocos 16 B repetidos (detetor ECB), magias, histograma |
 
 ## Xrefs / cripto
 
