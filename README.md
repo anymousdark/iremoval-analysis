@@ -20,7 +20,7 @@ Workspace de engenharia reversa estática do pacote
 | `evidence/` | Bundles exportados do REA (JSON determinístico) |
 | `ghidra-project/` | Projeto Ghidra headless |
 | `notes/` | Observações de análise |
-| `scripts/` | Extratores Node reutilizáveis |
+| `tools/` | Scripts reutilizáveis de análise (Node, PowerShell, Ghidra) — ver `tools/README.md` |
 
 ---
 
@@ -64,8 +64,8 @@ então `managed = false` e o Ghidra aceita sem mais alterações.
 
 ```powershell
 $node = 'C:\Users\p\AppData\Local\Programs\nodejs\node.exe'
-& $node scripts\pe-meta.js  "artifacts\original\iremovalpro.dll"  > dumps\meta-out.txt
-& $node scripts\strings.js  "artifacts\original\iremovalpro.dll"  > dumps\dll-strings.txt
+& $node tools\pe-meta.js  "artifacts\original\iremovalpro.dll"  > dumps\meta-out.txt
+& $node tools\strings.js  "artifacts\original\iremovalpro.dll"  > dumps\dll-strings.txt
 ```
 
 ---

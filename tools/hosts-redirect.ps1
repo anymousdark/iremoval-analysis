@@ -1,6 +1,6 @@
 # Redireciona os hosts do produto para 127.0.0.1 (TEMPORARIO, investigacao).
 # CORRER ELEVADO (UAC = 1 clique). Reverter com hosts-revert.ps1 no fim.
-# Uso: powershell -NoProfile -ExecutionPolicy Bypass -File scripts\hosts-redirect.ps1
+# Uso: powershell -NoProfile -ExecutionPolicy Bypass -File tools\hosts-redirect.ps1
 $ErrorActionPreference = "Stop"
 $isAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 if (-not $isAdmin) { Write-Output "NAO-ELEVADO"; exit 2 }

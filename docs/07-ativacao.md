@@ -2,7 +2,7 @@
 
 Estado: estrutura estática reconstruída; formatos exatos de pedido/resposta
 só aparecem em runtime (URLs e códigos vivem atrás do dispatcher; ver `06`).
-Para observar o tráfego real existe o harness `scripts/capture-server.js`.
+Para observar o tráfego real existe o harness `tools/capture-server.js`.
 
 ---
 
@@ -38,10 +38,10 @@ concatenação nestes literais.
   são montados em runtime.
 - Respostas do servidor (material de sessão) — por definição, só no fio.
 
-## 3. Harness: `scripts/capture-server.js`
+## 3. Harness: `tools/capture-server.js`
 
 ```powershell
-node scripts\capture-server.js [porta=8080]
+node tools\capture-server.js [porta=8080]
 ```
 
 Responde 200 JSON neutro a tudo e grava cada pedido em

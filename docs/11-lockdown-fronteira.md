@@ -32,4 +32,4 @@ excluir — cruzar com `ActivationState` se um dia responder).
 2. Repetir `ActivationState` noutro estado (após reboot / re-pair).
 3. Alargar domínios conhecidos (só leitura).
 
-Ferramenta: `scripts/lockdown-read.ps1` (`-Domain`, `-Keys`, lê string+uint).
+Ferramenta: `tools/lockdown-read.ps1` (`-Domain`, `-Keys`, lê string+uint).

@@ -1,8 +1,8 @@
 // Servidor TLS local de CAPTURA (porta 443) para observar o update-check.
-// Uso: node scripts\capture-tls.js <pfx> <senha> [corpo-version33]
+// Uso: node tools\capture-tls.js <pfx> <senha> [corpo-version33]
 // Responde version33.txt com o corpo dado (default igual ao servidor real)
 // e resto neutro; regista TUDO em dumps/capture-log.jsonl.
-// Requer redirecao DNS (hosts) — ver scripts\hosts-redirect.ps1 / hosts-revert.ps1.
+// Requer redirecao DNS (hosts) — ver tools\hosts-redirect.ps1 / hosts-revert.ps1.
 // Nullable, sem dependencias: https nativo do node.
 const https = require("https");
 const fs = require("fs");

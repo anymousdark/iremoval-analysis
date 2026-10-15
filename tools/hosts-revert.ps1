@@ -1,5 +1,5 @@
 # Reverte hosts-redirect.ps1 (TEMPORARIO -> original). CORRER ELEVADO.
-# Uso: powershell -NoProfile -ExecutionPolicy Bypass -File scripts\hosts-revert.ps1
+# Uso: powershell -NoProfile -ExecutionPolicy Bypass -File tools\hosts-revert.ps1
 $ErrorActionPreference = "Stop"
 $isAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 if (-not $isAdmin) { Write-Output "NAO-ELEVADO"; exit 2 }

@@ -1,6 +1,6 @@
 # Leitor lockdown SÓ-LEITURA via P/Invoke (libimobiledevice open-source, sem executar nada do alvo).
 # Lê ActivationState/ProductVersion/ProductType/SerialNumber do dispositivo emparelhado.
-# Uso: powershell -NoProfile -ExecutionPolicy Bypass -File scripts\lockdown-read.ps1 [-Udid ...]
+# Uso: powershell -NoProfile -ExecutionPolicy Bypass -File tools\lockdown-read.ps1 [-Udid ...]
 param([string]$Udid = "00008101-000D45023405001E", [string]$Domain = "__NULL__", [string]$Keys = "ActivationState,ProductVersion,ProductType,SerialNumber,UniqueDeviceID,DeviceName")
 $ErrorActionPreference = "Stop"
 $tk = "C:\Users\p\Documents\iRemoval PRO Premium Edition 5.2.1\ref\toolkits"

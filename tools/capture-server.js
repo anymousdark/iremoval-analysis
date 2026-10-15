@@ -7,7 +7,7 @@
 // que formato — sem modificar o produto. Requer fluxo real (dispositivo +
 // ação do utilizador); sem isso, a app não emite pedidos de ativação.
 //
-//   node scripts\capture-server.js [porta=8080]
+//   node tools\capture-server.js [porta=8080]
 //
 // Endpoints imitados (ver docs/07-ativacao.md): ars2, auth3, checkm8, iact9,
 // mf5/mf6/mf7, pub.php, version33.txt, Payax0.php

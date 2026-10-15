@@ -1,7 +1,7 @@
 # Trace ProcMon da app (precisa de driver = ELEVADO via -Verb RunAs, 1 clique).
 # Captura TUDO durante ~25s para dumps\procmon\trace.pml (no F:) e tenta
 # converter para CSV. Uso:
-# powershell -NoProfile -ExecutionPolicy Bypass -File scripts\procmon-trace.ps1
+# powershell -NoProfile -ExecutionPolicy Bypass -File tools\procmon-trace.ps1
 $ErrorActionPreference = "Stop"
 $base = Split-Path -Parent $PSScriptRoot
 $log = Join-Path $base "dumps\procmon-trace.log"

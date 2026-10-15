@@ -1,5 +1,5 @@
 // Laboratorio decriptografador: tenta AES c/ chaves candidatas extraidas do proprio binario.
-// Uso: node scripts\decrypt-lab.js <blob> [haystack] [--off N] [--top 100]
+// Uso: node tools\decrypt-lab.js <blob> [haystack] [--off N] [--top 100]
 // - candidatos: janelas 16/24/32B de maior entropia no haystack (fora do span do blob)
 // - modos: aes-128/192/256 x cbc/ecb/ctr; IVs: zeros e primeiro-bloco
 // - score nos 1os 4096 bytes: razao printavel + bonus por magias (MZ, bplist, PNG, {, [)

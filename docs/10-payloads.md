@@ -64,7 +64,7 @@ memória). Alvo futuro para sessão dinâmica com dispositivo.
 
 ## 8. Laboratório corrido: 0 hits (honesto)
 
-`scripts/decrypt-lab.js` (AES-128/192/256 × CBC/ECB/CTR × IV zeros/primeiro-bloco,
+`tools/decrypt-lab.js` (AES-128/192/256 × CBC/ECB/CTR × IV zeros/primeiro-bloco,
 300 chaves candidatas top-entropia do próprio DLL, score em 4 KB):
 `crypto-region.bin` (13 MB) → 0 hits; `bplist-enc.bin` (1 MB) → 0 hits.
 Sem vestígios de KDF (`PBKDF`/`Rfc2898`/`CreateDecryptor`: só ruído SSH/HTTP).

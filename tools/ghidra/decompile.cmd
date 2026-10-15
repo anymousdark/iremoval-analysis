@@ -15,7 +15,7 @@ set "PATH=%JAVA_HOME%\bin;%PATH%"
 set "PROJDIR=C:\tools\ghidra-work"
 set "PROJ=ire"
 set "PROGRAM=iremovalpro_engine.exe"
-set "SCRIPTS=F:\iremoval-analysis\scripts\ghidra"
+set "SCRIPTS=F:\iremoval-analysis\tools\ghidra"
 set "OUT=F:\iremoval-analysis\decompiled"
 
 set "MINSIZE=%~1"
