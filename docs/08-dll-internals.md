@@ -79,3 +79,8 @@ aleatório/encriptado/comprimido. Cai sobre o fim de `.pdata` e a seção
 `` `RZ `` (nomes não-convencionais; `H=8,0` em `.pdata` é anómalo por si).
 Hipótese: store de payload/config encriptado. Por confirmar com carving
 dirigido (procurar headers conhecidos dentro da faixa).
+
+> **Corrigido em `docs/12` (2026-10-15):** não é uma faixa contínua de 13 MB.
+> Entropia global da faixa = **7,49**, com zeros e **código x86-64**; os blocos
+> H≈8 são **mistos** (código AOT em `` `RZ ``/`.CJz` + trechos aleatórios
+> pequenos em `.pdata`). "Encriptado" não se sustenta como estava descrito.

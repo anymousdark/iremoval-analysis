@@ -9,3 +9,6 @@ iremoval-tools/dnspy/
 iremoval-tools/ilspy/
 iremoval-tools/ilspycmd/
 iremoval-tools/procmon/
+
+dumps/crypto-region.bin
+dumps/blk-*.bin

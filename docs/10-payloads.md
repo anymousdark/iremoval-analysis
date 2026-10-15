@@ -71,3 +71,11 @@ Sem vestígios de KDF (`PBKDF`/`Rfc2898`/`CreateDecryptor`: só ruído SSH/HTTP)
 Veredito: a chave não está crua no binário (derivada em runtime, partida/
 ofuscada, ou cifra custom) — nihil per staticam aqui. Destrava com: (a) app
 viva + extração da chave em memória, (b) xrefs à S-box em Ghidra com RAM.
+
+## 9. Correção (2026-10-15) — ver `docs/12`
+
+Medições novas desmentem a "região encriptada de 13 MB": a faixa tem
+**H=7,49** (com zeros e **código x86-64**), os blocos H≈8 são de naturezas
+**mistas** (código em `` `RZ ``/`.CJz`; dados aleatórios pequenos em `.pdata`),
+e a S-box AES é do **runtime .NET** (0 xref estático) — não um decryptor do
+produto. Conclusões de §4 e §7–§8 ficam **substituídas** por `12`.
