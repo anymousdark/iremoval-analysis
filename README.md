@@ -41,6 +41,7 @@ Workspace de engenharia reversa estática do pacote
 | 11 | `docs/11-lockdown-fronteira.md` — Fronteira do lockdown (iPhone próprio, emparelhado) |
 | 12 | `docs/12-correcao-entropia.md` — **Correção**: a "região encriptada de 13 MB" não existe |
 | 13 | `docs/13-protecao-empacotador.md` — Camada de proteção (empacotador/ofuscador) e imports reais |
+| 14 | `docs/14-relatorio-defensivo.md` — Relatório defensivo: proteções do binário e deteção (IOCs, YARA) |
 
 ---
 
