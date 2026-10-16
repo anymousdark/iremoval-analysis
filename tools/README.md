@@ -19,6 +19,7 @@ $node = 'C:\Users\p\AppData\Local\Programs\nodejs\node.exe'
 | `pe-imp-exp.js` | (obsoleto) imports/exports — não lida com o layout de diretórios não-padrão |
 | `va-read.js` | Lê bytes por VA (resolve secção → offset de ficheiro) |
 | `checkcfg.js` | Valida/limpa JSONC (tira comentários e vírgulas finais) |
+| `find-macho.js` | Localiza binários **Mach-O/FAT** embutidos num ficheiro (expande fatias FAT; mostra ID/LOAD_DYLIB/RPATH, BUILD minos e extents) — ex.: o kit iOS dentro do motor |
 
 ## Strings / conteúdo
 
