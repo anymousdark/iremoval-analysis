@@ -1,17 +1,11 @@
+# Acervo completo para documentario: os 4 brutos acima de 100 MiB do GitHub
+# nao podem entrar na arvore (push rejeita; Git LFS descartado pela quota de 1 GiB)
+# e sao publicados INTEGRAIS como assets da Release "acervo-brutos-2026-10-16".
+# Tamanhos e sha256: docs/16-acervo-bruto.md
 dumps/mem/*.dmp
-iremoval-tools/downloads/
-
-
-dumps/procmon/
-
-
-iremoval-tools/dnspy/
-iremoval-tools/ilspy/
-iremoval-tools/ilspycmd/
-iremoval-tools/procmon/
+dumps/procmon/trace.pml
+iremoval-tools/downloads/ghidra1214.zip
+iremoval-tools/downloads/temurin21.zip
 
 dumps/crypto-region.bin
 dumps/blk-*.bin
-
-# projeto Ghidra local (DB binario regeneravel)
-ghidra-project/
