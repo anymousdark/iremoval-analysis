@@ -46,9 +46,16 @@ $node = 'C:\Users\p\AppData\Local\Programs\nodejs\node.exe'
 | Ficheiro | Uso |
 |---|---|
 | `xref-sbox.js` | Xrefs x64 a um alvo de dados (rip-relative `lea`/`mov` + imediato), todas as secções |
+| `scan-code-refs.js` | Direção inversa: varre uma faixa de código e lista `mov imm64`/`lea rip`/`mov [rip]` (load/store) com alvo dentro de uma janela de VAs (descobrir tokens/globais de um handler) |
 | `scan-ptr.js` | Procura ponteiros/RVAs para um VA na PE inteira + interpreta `.reloc` |
 | `verify.js` | Sanidade do scanner: conta refs rip-relative `.text` → `.rdata` |
 | `decrypt-lab.js` | Laboratório AES: chaves candidatas (top-entropia) × CBC/ECB/CTR × IVs, com score |
+
+## Dumps / memória
+
+| Ficheiro | Uso |
+|---|---|
+| `mdmp-read.js` | Lê VAs de imagem (ex. `0x18078f9a0`) de um minidump MDMP: resolve módulo→base carregada, Memory64→offset, e parseia objetos frozen NativeAOT (`[MT][len][utf16]` + deref de 1 nível); modo `--walk <loVA> <hiVA>` varre a faixa e lista todo objeto String (inventário frozen) |
 
 ## Dispositivo / lockdown (só leitura)
 
