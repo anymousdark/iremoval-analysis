@@ -4,6 +4,10 @@ Pseudocode Ghidra 12.1.4 da região `0x180500000–0x180560000`
 (`artifacts/patched/entry-region.bin`, 393 KB, análise de 2,1 min).
 Arquivos em `decompiled/exports/`.
 
+> **Revisão 2026-10-16 (ver `15`):** o opcode 2 monta um `ProcessStartInfo`
+> e chama `Process.Start` — a string é **`https://iremovalpro.com`** (abre o
+> site via `ShellExecute`). Os opcodes curtos seguem o mesmo idioma BCL.
+
 > O EXE ofuscado chama exatamente essas três funções via P/Invoke
 > (`iRemoval PRO.exe` → `ImplMap` ×6). Esta é a fronteira inteira entre a
 > casca .NET e o motor nativo.
@@ -159,8 +163,8 @@ Cada um monta um objeto de configuração e o submete. Exemplo real
 ```c
 void FUN_180542570(void) {
   o = alloc_type(0x180839830);
-  *(o + 8)    = 0x1807ca4f8;    // token de tipo/string
-  *(o + 0x83) = 1;              // flag booleana
+  *(o + 8)    = 0x1807ca4f8;    // FileName: "https://iremovalpro.com" (ver 15)
+  *(o + 0x83) = 1;              // UseShellExecute = 1 → ShellExecute
   submit(o);                    // func_0x0001801b51f0
 }
 ```

@@ -4,6 +4,12 @@ Pseudocode Ghidra da faixa `RVA 0x1B0000–0x1C0000`
 (`artifacts/patched/dispatcher-region.bin`, 64 KB, análise de 1,55 min).
 Saídas em `decompiled/dispatcher*/`.
 
+> **Revisão 2026-10-16 (ver `15`):** a faixa contém os internos do
+> `System.Diagnostics.Process`/`ProcessStartInfo` (BCL .NET 8). A descrição
+> de comportamento vale; correções: `+0x20` = `MachineName` (default `"."`),
+> `+0xe6` = flag *remote*, `0x103` = `STILL_ACTIVE`, descritor `0x70` =
+> `SHELLEXECUTEINFO` (`ShellExecuteEx`).
+
 > Continuação direta de `03-api-nativa.md`. Aqui está **o que** `Action`
 > despacha quando o opcode é executado.
 
@@ -139,7 +145,7 @@ Os códigos de erro tratados ao redor são **erros de carregamento Win32**:
 | `0x78` (120) | `ERROR_CALL_NOT_IMPLEMENTED` |
 | `0xc1` (193) | `ERROR_BAD_EXE_FORMAT` |
 | `0xd8` (216) | `ERROR_EXE_MACHINE_TYPE_MISMATCH` |
-| `0x103` (259) | `ERROR_MORE_DATA` (tolerado) |
+| `0x103` (259) | `STILL_ACTIVE` (tolerado; ver `15`) |
 
 `ERROR_BAD_EXE_FORMAT` + `ERROR_EXE_MACHINE_TYPE_MISMATCH` +
 `ERROR_ACCESS_DENIED` é a assinatura de **`LoadLibrary`/`GetModuleHandle`
@@ -247,9 +253,9 @@ return 1;
 tls  = func_0x180004bd4();          // base do bloco TLS
 err  = *(int*)(tls + 0xf8);         // "LastError"
 ```
-Tolerância explícita: **`0x103` (ERROR_MORE_DATA) nunca é erro** — aparece
-em `after`, em `FUN_1801b6d70` e em `open_handle`. É o padrão de quem consome
-uma API de buffer variável.
+Tolerância explícita: **`0x103` (`STILL_ACTIVE`) nunca é erro** — aparece
+em `after`, em `FUN_1801b6d70` e em `open_handle`. É o padrão de verificação
+de exit-code de processo ainda em execução (revisão: ver `15`).
 
 ### 8.3 Armadilhas
 `swi(3)` (`__debugbreak()`) nos invariantes violados — 8 ocorrências nesta

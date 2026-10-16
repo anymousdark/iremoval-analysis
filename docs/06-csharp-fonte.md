@@ -91,5 +91,7 @@ Novidades reais (o resto é ruído CLR/WPF/DirectX):
   de bytes) só existem em runtime — o C# estático mostra o esqueleto.
 - Do motor NativeAOT não há fonte C#: o melhor são os pseudocodes
   (`decompiled/dispatcher-all/`, `entry/`, `exports/`) + `03`/`04`/`05`.
-- Por fazer (não crítico): texto das 6 strings de exceção da `configure`,
-  nome do MethodTable `0x180839620` (ver `05` §6).
+- Resolvido em 2026-10-16: as 6 strings de exceção da `configure` foram
+  extraídas do dump (`tools/mdmp-read.js`; família SR de
+  `System.Diagnostics.Process`) — ver `05` §6. Resta (não crítico): nome do
+  MethodTable `0x180839620`.

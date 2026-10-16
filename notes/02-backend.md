@@ -226,7 +226,36 @@ O desenho observado é:
 
 ---
 
-## 7. Observação
+## 7. Evidência em runtime (dump, 2026-10-16)
+
+Strings *frozen* do motor no dump `dumps/mem/ipro-01.dmp` (módulo carregado em
+`0x7ffd70de0000` ↔ imagem `0x180000000`; leitura com `tools/mdmp-read.js`).
+Confirma §1/§3 com endereços — os URLs vivem em `0x1807ca4xx-aa68`:
+
+| URL | VA (imagem) |
+|---|---|
+| `https://iremovalpro.com` | `0x1807ca4f8` |
+| `…/Payax0.php` | `0x1807ca540` |
+| `…/iremovalActivation/ars2.php` | `0x1807ca5a0` |
+| `…/auth3.php` | `0x1807ca628` |
+| `…/checkm8.php` | `0x1807ca6b0` |
+| `…/iact9.php` | `0x1807ca740` |
+| `…/mf5.php` | `0x1807ca7c8` |
+| `…/mf6.php` | `0x1807ca850` |
+| `…/mf7.php` | `0x1807ca8d8` |
+| `…/pub.php` | `0x1807ca960` |
+| `…/version33.txt` | `0x1807ca9c0` |
+| Trustpilot (review) | `0x1807caa68` |
+| Telegram (`t.me/iremoval`) | `0x1807caa28` |
+
+Outras: `X-iRemovalPRO-Version` `0x1807bf880`; `…; PayloadLength=`
+`0x180766968`; `iremovalpro.Properties.Resources` `0x1807cbb08`; UI
+("Please click 'iRa1n'…") `0x180794628`. Inventário completo (5.711 strings)
+e operações de dispositivo: `10` §10 (e §3.6 acima).
+
+---
+
+## 8. Observação
 
 Este documento descreve **o que o binário faz**, obtido por análise estática.
 NÃO é um guia de operação, e a lógica de bypass em si não foi

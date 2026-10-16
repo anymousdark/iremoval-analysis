@@ -5,6 +5,12 @@ Fecha o passo pedido em `03-api-nativa.md` §6: o dispatcher real vive em
 Pseudocode em `decompiled/dispatcher-all/` (`get_context`, `configure`,
 `submit`, `after` nomeadas; resto `FUN_*`).
 
+> **Revisão 2026-10-16 (ver `15`):** as funções nomeadas são internos do
+> `System.Diagnostics.Process` (BCL): `configure` = `EnsureState`, `submit` =
+> `Process.Start(ProcessStartInfo)`, `after` = cauda de `WaitForExit`.
+> O objeto `0x180839620` ≈ `Process` (`+0x20` = `MachineName`). As 6 strings
+> de exceção estão em §6.
+
 > Ciclo de vida de uma operação: `get_context()` aloca o contexto →
 > `configure(ctx, flags)` arma a state machine → `submit(job)` enfileira e
 > despacha → `after(...)` espera e levanta exceção gerenciada em caso de falha.
@@ -133,6 +139,30 @@ submit:      prepare → enqueue → dispatch → ctx|0  (NULL → fail-fast + s
 after:       poll → wait INFINITE → HResult throw → swi(3) / cleanup runtime
 ```
 
-Em aberto (não crítico): texto exato das 6 strings de exceção da
-`configure` (objetos frozen com header;requer parser de string NativeAOT) e
-o MethodTable `0x180839620` por nome (tabela EEType).
+**Fechado (2026-10-16)** — as 6 strings foram extraídas do dump
+`dumps/mem/ipro-01.dmp` com `tools/mdmp-read.js` (VA de imagem → offset
+MDMP; parser de string frozen NativeAOT `[MT][len][utf16]`):
+
+| VA (imagem) | String extraída | MT da exceção |
+|---|---|---|
+| `0x18078f9a0` | `No process is associated with this object.` | `0x18085a558` |
+| `0x18077eb58` | `Feature requires a process identifier.` | `0x18085a558` |
+| `0x18077eae8` | `Feature is not supported for remote machines.` | `0x18085ac08` |
+| `0x180795b58` | `Process has exited, so the requested information is not available.` | `0x18085a558` |
+| `0x180795cd8` | `Process must exit before requested information can be determined.` | `0x18085a558` |
+| `0x180795e78` | `Process was not started by this object, so requested information cannot be determined.` | `0x18085a558` |
+
+Repro:
+`node tools\mdmp-read.js dumps\mem\ipro-01.dmp 0x18078f9a0 0x18077eb58 0x18077eae8 0x180795b58 0x180795cd8 0x180795e78`
+
+Proveniência: família SR do **`System.Diagnostics.Process`** (BCL .NET 8) —
+`<System.Diagnostics.Process.dll` consta nas strings estáticas
+(`dumps/dll-strings.txt` @ `0x7459af`) e o dump traz as mensagens de
+deprecação da própria classe. Leitura de trabalho (a revisar na auditoria
+de cobertura): a `configure` casa com o padrão `EnsureState` (bits por
+estado, cada falha com o seu throw) sobre um objeto de **processo**
+(`+0xd0` id, `+0xe4` ativo, `+0xe5` exited, `+0xe6` remote) — coerente com
+o ciclo do `ideviceproxy` (subprocesso do motor).
+
+Ainda em aberto (não crítico): MethodTable `0x180839620` por nome — em
+curso via REA (`inspect_native_data_type`, metadata `dotnet-nativeaot`).
