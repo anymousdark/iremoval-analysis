@@ -187,3 +187,33 @@ Repro:
 ```
 node tools\find-macho.js artifacts\patched\iremovalpro_engine.exe
 ```
+
+## 12. Gates de versão iOS no motor (2026-10-16 noite)
+
+Strings de faixa de versão presentes no motor (VAs de imagem; dump `ipro-01`):
+
+| VA | String | xref (`lea-rip`) |
+|---|---|---|
+| `0x180792ac8` | `Only iOS 15.0 to 16.6.1 supported for now..` | `0x18053e60e` |
+| `0x1807b74e8` | `This iOS Version is not supported yet` | `0x18053e600` |
+| `0x1807c07b8` | `Your Device iOS version is NOT supported! this tool only support iOS 17.0.1 till 18.5 and 18.6 (beta, beta2, beta3) and 26.0 (beta, beta2, beta3).restore your Device to one of those iOS versions and try again!!` | `0x18053eb22` |
+| `0x1807cad18` | `iOS Not` (fragmento) | `0x18053e585` |
+
+Os 4 sites caem numa **única função de roteamento de versão**
+(~`0x18053e5xx–0x18053ebxx`) — é aí que o motor decide o caminho por faixa:
+
+- **15.0–16.6.1** — faixa do fluxo checkm8-era (compatível com o kit
+  embutido do §11);
+- **17.0.1–18.5 / 18.6 betas / 26.0 betas** — faixa que exige *restore*
+  para uma das versões listadas (fluxo distinto, material server-side).
+
+Notas: este build (5.2.1) lista **26.0 betas**; o suporte divulgado
+"até 26.1" (2026-10) indica build mais nova do produto ou string não
+revista. A função ainda não está na coleta descompilada (`decompiled/`) —
+dump dirigido em curso (`tools/ghidra/DumpAt.java`).
+
+Repro (uma janela exata por string; cada execução retorna 1 site):
+
+```
+node tools\scan-code-refs.js artifacts\patched\iremovalpro_engine.exe 0x180001000 0x1809f5000 0x180792ac8 0x180792ad8
+```
