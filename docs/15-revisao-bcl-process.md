@@ -96,7 +96,9 @@ O `iremovalpro.dll` é um aplicativo nativo .NET 8 (NativeAOT) que:
    processos-filho** e **abrir URLs** via `ShellExecute`.
 
 O que parecia um scheduler próprio na faixa analisada é *plumbing* do
-`Process`. Nada de payload embutido no binário (ver `10`/`12`).
+`Process`. **Correção 2026-10-16**: esta frase dizia "nada de payload embutido
+no binário" — errado à escala do ficheiro todo: o motor embute sim binários
+Apple (`10` §11); o que aqui não existe é payload *do servidor*.
 
 ---
 

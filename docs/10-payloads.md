@@ -1,15 +1,20 @@
 # 10 — Payloads embutidos: levantamento completo
 
 Pergunta: há executáveis, tweaks ou blobs de bypass dentro dos binários?
-Resposta curta: **nada executável embutido**; há 1 bplist legível, 1 região
-encriptada e o resto vem do servidor/`ref/`.
+Resposta curta (revista em 2026-10-16): **sim** — há binários Apple
+embutidos: 1 dylib FAT de 2 fatias (`blackhound.dylib`) + 3 executáveis iOS
+em `.rdata` (§11); há ainda 1 bplist legível, 1 região encriptada, e o
+material *por-aparelho* continua vindo do servidor/`ref/`.
 
 ---
 
-## 1. Executáveis embutidos: NENHUM
+## 1. Executáveis embutidos: NENHUM (⚠️ ver correção no §11)
 
 Varrimento `MZ+PE` no motor e na casca (`find-pe.js`): só os headers
 externos (`x64`/`x86` em `0x0`). Sem EXE/DLL escondidos.
+
+> **Correção (2026-10-16)**: esta varredura cobriu apenas `MZ`/PE.
+> O motor **embute binários Apple (Mach-O/FAT)** em `.rdata` — ver §11.
 
 ## 2. Magias encontradas (`find-magic.js`)
 
@@ -42,11 +47,13 @@ memória). Alvo futuro para sessão dinâmica com dispositivo.
 ## 5. De onde vêm os payloads de facto
 
 - **Servidor**: app Ra1n (`iRemovalRa1n`), ficheiros de ativação, updates
-  (`notes/02` §1, `07` protocolo). Nada disto está embutido.
+  (`notes/02` §1, `07` protocolo). Material dinâmico — não está no binário.
 - **`ref/toolkits/`**: `ideviceproxy` (23 MB), libimobiledevice, OpenSSL —
   ferramentas de terceiros no disco, não no binário.
 - **Lado iOS** (tweak CydiaSubstrate/Logos, bundle `com.iremovalpro.bypass`):
-  entregue via servidor/dispositivo, não embutido (`notes/02` §3).
+  **⚠️ correção 2026-10-16**: os binários device-side *estão* embutidos no
+  motor (`blackhound.dylib` + 3 executáveis iOS em `.rdata`; a versão anterior
+  deste bullet dizia "não embutido") — ver §11.
 
 ## 6. Ferramentas
 
@@ -140,13 +147,43 @@ Sites (xrefs): `cmd.exe` ×7 (`0x18053a0xx…0x18053d1xx`), `mobileactivationd`
    "iOS Device Activator (MobileActivation-…)", `notes/02` §3.6);
 4. unbypass = `rm -rf` de `identityd`/`payload`.
 
-**Nada disto é payload embutido**: são as *operações* do motor; o material
-por-aparelho segue vindo do servidor (`checkm8.php`/`mf*`/`iact9`… — §1–§5,
-`notes/02`).
+**As *operações* acima são o motor; os binários iOS que elas plantam também
+estão embutidos** (`.rdata` — §11). O material *por-aparelho* segue vindo do
+servidor (`checkm8.php`/`mf*`/`iact9`… — §1–§5, `notes/02`).
 
 Repro:
 
 ```
 node tools\mdmp-read.js dumps\mem\ipro-01.dmp --walk 0x180740000 0x1809f5000 > walk.txt
 node tools\scan-code-refs.js artifacts\patched\iremovalpro_engine.exe 0x180001000 0x1809f5000 0x1807c4e08 0x1807c4e09
+```
+
+## 11. Binários Apple embutidos (correção, 2026-10-16 noite)
+
+A varredura do §1 buscou apenas `MZ`/PE. Procurando magias Mach-O/FAT
+(`tools/find-macho.js`) aparecem **5 cabeçalhos Apple embutidos em `.rdata`**
+(bytes crus — 1 dylib FAT com 2 fatias + 3 executáveis):
+
+| # | fo | tipo | arch | iOS mín | tam. | identidade |
+|---|---|---|---|---|---|---|
+| 1 | `0x8514bc` | FAT → DYLIB ×2 | arm64 + arm64e | 14.4 | ~90 KB/fatia | **`blackhound.dylib`** (ID em `/Library/MobileSubstrate/DynamicLibraries/`): tweak MobileSubstrate/**Logos** que hooka o `MobileActivationDaemon` — `LOAD CydiaSubstrate`, `__logos`×12, `MobileActivation`×9 |
+| 2 | `0x8832e1` | EXECUTE | arm64 | 12.0 | 142 KB | helper device-side; `LOAD DeviceManagement`, `SpringBoardServices`, `Catalyst`, `MobileGestalt`; plist de entitlements embutido (`com.apple.mobileactivationd.spi=true`) — candidato a `identityd` |
+| 3 | `0x8a5db6` | EXECUTE | arm64 | 13.1 | 158 KB | `LOAD EmbeddedDataReset` + `MobileGestalt` (fluxo de erase) |
+| 4 | `0x8ec191` | EXECUTE | arm64 | 14.1 | 72 KB | `LOAD MobileActivation.framework` (7× `mobileactivationd` nas strings), `RPATH @executable_path/Frameworks`, entitlement `…spi=true` + id `584196299` — candidato forte a `identityd` |
+
+No mesmo `.rdata` (fo `0xa18xxx-0xa19xxx`) convivem as strings operacionais
+do kit: paths iOS (`/Info.plist`, `/Manifest.db`, `/iTunes_Control/…`,
+`/Downloads/*.sqlitedb-wal`), `/private/var/root/identityd -1/-2/-3`,
+`/private/var/root/payload`, `/netimobiledevice.ipa`, fragmentos **NETCONF**
+(`/nc:hello`, `nc:capability[text()='urn:ietf:params:netconf:base:1.1']`),
+templates `/c pnputil …`, boundary multipart de upload
+(`2894775802929`) e constantes ECC do BCL (P-521).
+
+**Fronteira**: identificação feita *in place* (parse de headers/extents);
+nenhum binário foi extraído para ficheiro.
+
+Repro:
+
+```
+node tools\find-macho.js artifacts\patched\iremovalpro_engine.exe
 ```

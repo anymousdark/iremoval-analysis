@@ -54,16 +54,21 @@ de extração).
 
 ## 4. Entrega de payloads — onde estão (e onde não estão)
 
-Correção importante face ao senso comum: **não há executável embutido**
-(`docs/10` §1 — varrimento `MZ+PE` só encontra headers externos) e a alegada
-"região encriptada de 13 MB" **não existe** (`docs/12`). O payload de bypass:
+Correção (revista em 2026-10-16; ver `docs/10` §11): **há binários Apple
+embutidos** — 1 dylib FAT (`blackhound.dylib`, arm64/arm64e — tweak
+CydiaSubstrate/Logos que hooka o `MobileActivationDaemon`) + 3 executáveis
+iOS, byte-exact em `.rdata` do motor (o varrimento `MZ+PE` anterior só via
+PE). A alegada "região encriptada de 13 MB" **não existe** (`docs/12`).
+Do lado do material de bypass:
 
-- é **material do lado do dispositivo** (tweak CydiaSubstrate/Logos),
-  buscado ao **servidor** em runtime;
-- não é um blob cifrado recuperável no `.exe`/`.dll` do PC.
+- o **binário base do tweak viaja dentro do produto** (carveável de `.rdata`);
+- já os **dados por-aparelho** (tickets/ativação) continuam a vir do
+  **servidor** em runtime.
 
-Consequência defensiva: um "decryptor" estático não tem alvo; a deteção deve
-ser **comportamental/rede**, não de conteúdo.
+Consequência defensiva: não há blob cifrado para um "decryptor" atacar, mas
+os binários iOS embutidos são carveáveis (magias Mach-O/FAT em `.rdata`) e
+devem entrar na deteção estática; a deteção de *uso* mantém-se
+**comportamental/rede**.
 
 ## 5. Indicadores de deteção
 
