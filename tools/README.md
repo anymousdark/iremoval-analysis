@@ -88,6 +88,7 @@ $node = 'C:\Users\p\AppData\Local\Programs\nodejs\node.exe'
 | `ghidra/decompile.cmd` | Wrapper headless (Ghidra + JDK) |
 | `ghidra/DumpDecomp.java` | Exporta descompilação de procedimentos |
 | `ghidra/Exports.java` | Exporta símbolos/tabela de funções |
+| `ghidra/DumpAt.java` | Descompila funções **por endereço** (função que contém o VA) → `<outDir>/<entry>_<nome>.c` + `_dump_at.tsv` |
 
 > **Nota de escopo:** ferramentas de análise/servidores de captura. Não contêm
 > nem geram reimplementação do produto, ativações válidas ou bypass.
