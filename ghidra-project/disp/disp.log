@@ -1,0 +1,117 @@
+﻿INFO  Using log config file: jar:file:/C:/tools/ghidra/ghidra_12.1.4_PUBLIC/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml (LoggingInitialization)  
+INFO  Using log file: C:\Users\p\AppData\Roaming\ghidra\ghidra_12.1.4_PUBLIC\application.log (LoggingInitialization)  
+INFO  Loading user preferences: C:\Users\p\AppData\Roaming\ghidra\ghidra_12.1.4_PUBLIC\preferences (Preferences)  
+INFO  Searching for classes... (ClassSearcher)  
+INFO  Class search complete (10031 ms) (ClassSearcher)  
+INFO  Initializing SSL Context (DefaultSSLContextInitializer)  
+INFO  Initializing Random Number Generator... (SecureRandomFactory)  
+INFO  Random Number Generator initialization complete: SHA1PRNG (SecureRandomFactory)  
+INFO  Trust manager disabled, cacerts have not been set (DefaultTrustManagerFactory)  
+INFO  Headless startup complete (38356 ms) (AnalyzeHeadless)  
+INFO  Class searcher loaded 93 extension points (46 false positives) (ClassSearcher)  
+INFO  HEADLESS Script Paths:
+    C:\tools\ghidra\ghidra_12.1.4_PUBLIC\Ghidra\Processors\8051\ghidra_scripts
+    C:\tools\ghidra\ghidra_12.1.4_PUBLIC\Ghidra\Features\BytePatterns\ghidra_scripts
+    C:\tools\ghidra\ghidra_12.1.4_PUBLIC\Ghidra\Features\PyGhidra\ghidra_scripts
+    C:\tools\ghidra\ghidra_12.1.4_PUBLIC\Ghidra\Processors\JVM\ghidra_scripts
+    C:\tools\ghidra\ghidra_12.1.4_PUBLIC\Ghidra\Processors\Atmel\ghidra_scripts
+    C:\tools\ghidra\ghidra_12.1.4_PUBLIC\Ghidra\Features\GnuDemangler\ghidra_scripts
+    C:\tools\ghidra\ghidra_12.1.4_PUBLIC\Ghidra\Features\SwiftDemangler\ghidra_scripts
+    C:\tools\ghidra\ghidra_12.1.4_PUBLIC\Ghidra\Features\SystemEmulation\ghidra_scripts
+    C:\tools\ghidra\ghidra_12.1.4_PUBLIC\Ghidra\Processors\PIC\ghidra_scripts
+    F:\iremoval-analysis\scripts\ghidra
+    C:\tools\ghidra\ghidra_12.1.4_PUBLIC\Ghidra\Features\Base\ghidra_scripts
+    C:\tools\ghidra\ghidra_12.1.4_PUBLIC\Ghidra\Features\MicrosoftCodeAnalyzer\ghidra_scripts
+    C:\tools\ghidra\ghidra_12.1.4_PUBLIC\Ghidra\Features\PDB\ghidra_scripts
+    C:\tools\ghidra\ghidra_12.1.4_PUBLIC\Ghidra\Features\BSim\ghidra_scripts
+    C:\tools\ghidra\ghidra_12.1.4_PUBLIC\Ghidra\Features\VersionTracking\ghidra_scripts
+    C:\tools\ghidra\ghidra_12.1.4_PUBLIC\Ghidra\Debug\Debugger\ghidra_scripts
+    C:\tools\ghidra\ghidra_12.1.4_PUBLIC\Ghidra\Features\WildcardAssembler\ghidra_scripts
+    C:\tools\ghidra\ghidra_12.1.4_PUBLIC\Ghidra\Processors\DATA\ghidra_scripts
+    C:\tools\ghidra\ghidra_12.1.4_PUBLIC\Ghidra\Features\DecompilerDependent\ghidra_scripts
+    C:\tools\ghidra\ghidra_12.1.4_PUBLIC\Ghidra\Features\FileFormats\ghidra_scripts
+    C:\tools\ghidra\ghidra_12.1.4_PUBLIC\Ghidra\Features\Decompiler\ghidra_scripts
+    C:\tools\ghidra\ghidra_12.1.4_PUBLIC\Ghidra\Debug\Debugger-rmi-trace\ghidra_scripts
+    C:\tools\ghidra\ghidra_12.1.4_PUBLIC\Ghidra\Features\FunctionID\ghidra_scripts (HeadlessAnalyzer)  
+INFO  HEADLESS: execution starts (HeadlessAnalyzer)  
+INFO  Creating project: F:\iremoval-analysis\ghidra-project\disp\disp (HeadlessAnalyzer)  
+INFO  Creating project: F:\iremoval-analysis\ghidra-project\disp\disp (DefaultProject)  
+INFO  REPORT: Processing input files:  (HeadlessAnalyzer)  
+INFO       project: F:\iremoval-analysis\ghidra-project\disp\disp (HeadlessAnalyzer)  
+INFO  IMPORTING: file:///F:/iremoval-analysis/artifacts/patched/dispatcher-region.bin (HeadlessAnalyzer)  
+INFO  Successfully applied "-loader-baseAddr" to "Base Address" (old: "null", new: "0x1801B0000") (ProgramLoader)  
+INFO  Successfully applied "-loader-length" to "Length" (old: "0x10000", new: "0x10000") (ProgramLoader)  
+INFO  Using Loader: Raw Binary (ProgramLoader)  
+INFO  Using Language/Compiler: x86:LE:64:default:windows (ProgramLoader)  
+INFO  Using Library Search Path: [., C:\Windows\SysWOW64, C:\tools\jdk21\jdk-21.0.12.1+1\bin, C:\Windows\Sun\Java\bin, C:\Windows\system32, C:\Windows, C:\Windows\System32\Wbem, C:\Windows\System32\WindowsPowerShell\v1.0\, C:\Windows\System32\OpenSSH\, C:\Program Files\nodejs\, C:\Program Files\GitHub CLI\, C:\Program Files\WSL\, C:\Program Files\Git\cmd, C:\Program Files\dotnet\, C:\Users\p\.local\bin, C:\Users\p\AppData\Local\Microsoft\WindowsApps, C:\Users\p\AppData\Roaming\npm, C:\Users\p\AppData\Local\Programs\Microsoft VS Code\bin, C:\Users\p\AppData\Local\Programs\nodejs, C:\Program Files\GitHub CLI, C:\Users\p\.bun\bin, C:\Users\p\.dotnet\tools, C:\Users\p\AppData\Local\Programs\Ollama] (ProgramLoader)  
+INFO  IMPORTING: Loaded 0 additional files (HeadlessAnalyzer)  
+INFO  ANALYZING all memory and code: file:///F:/iremoval-analysis/artifacts/patched/dispatcher-region.bin (HeadlessAnalyzer)  
+WARN  Decompiling 1801bab80: Unable to read bytes at ram:180caab50 (DecompileCallback)  
+WARN  Decompiling 1801baa80: Unable to read bytes at ram:180caab28 (DecompileCallback)  
+WARN  Decompiling 1801bac00: Unable to read bytes at ram:180caaba0 (DecompileCallback)  
+INFO  Packed database cache: C:\Users\p\AppData\Local\ghidra\packed-db-cache (PackedDatabaseCache)  
+INFO  Applied data type archive: generic_clib_64 (ApplyDataArchiveAnalyzer)  
+INFO  -----------------------------------------------------
+    ASCII Strings                              2.013 secs
+    Apply Data Archives                        1.421 secs
+    Call-Fixup Installer                       0.008 secs
+    Create Address Tables                      0.237 secs
+    Create Function                            0.471 secs
+    Decompiler Switch Analysis                 5.939 secs
+    Disassemble                                3.323 secs
+    Disassemble Entry Points                   0.008 secs
+    Embedded Media                             0.091 secs
+    External Entry References                  0.001 secs
+    Function ID                                1.214 secs
+    Function Start Search                      0.133 secs
+    Non-Returning Functions - Discovered       0.778 secs
+    Reference                                  0.039 secs
+    Scalar Operand References                  0.194 secs
+    Shared Return Calls                        0.149 secs
+    Stack                                      1.424 secs
+    Subroutine References                      0.116 secs
+    x86 Constant Reference Analyzer            1.841 secs
+-----------------------------------------------------
+     Total Time   19 secs
+-----------------------------------------------------
+ (AutoAnalysisManager)  
+INFO  REPORT: Analysis succeeded for file: file:///F:/iremoval-analysis/artifacts/patched/dispatcher-region.bin (HeadlessAnalyzer)  
+INFO  REPORT: Execute script: Exports.java 'F:\iremoval-analysis\decompiled\dispatcher' '1801b4d10:get_context' '1801b51f0:submit' '1801b48b0:configure' '1801ba100:resolve' '1801b57d0:after'  (HeadlessAnalyzer)  
+INFO  SCRIPT: F:\iremoval-analysis\scripts\ghidra\Exports.java (HeadlessAnalyzer)  
+INFO  Exports.java> get_context @ 1801b4d10 -> ok created=true (GhidraScript)  
+INFO  Exports.java> submit @ 1801b51f0 -> ok created=true (GhidraScript)  
+INFO  Exports.java> configure @ 1801b48b0 -> ok created=false (GhidraScript)  
+INFO  Exports.java> resolve @ 1801ba100 -> ok created=true (GhidraScript)  
+INFO  Exports.java> after @ 1801b57d0 -> ok created=true (GhidraScript)  
+INFO  Exports.java> Exports concluido -> F:\iremoval-analysis\decompiled\dispatcher (GhidraScript)  
+INFO  REPORT: Execute script: DumpDecomp.java 'F:\iremoval-analysis\decompiled\dispatcher-all' '0'  (HeadlessAnalyzer)  
+INFO  SCRIPT: F:\iremoval-analysis\scripts\ghidra\DumpDecomp.java (HeadlessAnalyzer)  
+WARN  Decompiling 1801b95b0, pcode error at 180725190: Could not follow disassembly flow into non-existing memory at 180725190 (DecompileCallback)  
+WARN  Decompiling 1801baa80: Unable to read bytes at ram:180caab28 (DecompileCallback)  
+WARN  Decompiling 1801bab80: Unable to read bytes at ram:180caab50 (DecompileCallback)  
+WARN  Decompiling 1801bac00: Unable to read bytes at ram:180caaba0 (DecompileCallback)  
+INFO  DumpDecomp.java> DumpDecomp: considerados=79 gravados=79 falhas=0 -> F:\iremoval-analysis\decompiled\dispatcher-all (GhidraScript)  
+INFO  ANALYZING changes made by post scripts: file:///F:/iremoval-analysis/artifacts/patched/dispatcher-region.bin (HeadlessAnalyzer)  
+WARN  Decompiling 1801b7790: Unable to read bytes at ram:180caaae0 (DecompileCallback)  
+WARN  Decompiling 1801b77d0: Unable to read bytes at ram:180caaaf0 (DecompileCallback)  
+WARN  Decompiling 1801b77d0: Unable to read bytes at ram:180caab0c (DecompileCallback)  
+INFO  -----------------------------------------------------
+    Call-Fixup Installer                       0.002 secs
+    Create Function                            0.198 secs
+    Decompiler Switch Analysis                 1.075 secs
+    Function Start Search                      0.001 secs
+    Non-Returning Functions - Discovered       0.307 secs
+    Reference                                  0.010 secs
+    Scalar Operand References                  0.075 secs
+    Shared Return Calls                        0.040 secs
+    Stack                                      0.571 secs
+    Subroutine References                      0.029 secs
+    x86 Constant Reference Analyzer            0.530 secs
+-----------------------------------------------------
+     Total Time   2 secs
+-----------------------------------------------------
+ (AutoAnalysisManager)  
+INFO  REPORT: Post-analysis succeeded for file: file:///F:/iremoval-analysis/artifacts/patched/dispatcher-region.bin (HeadlessAnalyzer)  
+INFO  /dispatcher-region.bin: file created (p) (LocalFileSystem)  
+INFO  REPORT: Save succeeded for: /dispatcher-region.bin (disp:/dispatcher-region.bin) (HeadlessAnalyzer)  
+INFO  REPORT: Import succeeded (HeadlessAnalyzer)  
