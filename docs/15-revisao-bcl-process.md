@@ -72,11 +72,15 @@ lida no dump); `psi.UseShellExecute = 1`; `submit(psi)`. A rota `PATH_B` é
 `0x78`/`0xC1`/`0xD8` = `CALL_NOT_IMPLEMENTED`/`BAD_EXE_FORMAT`/
 `EXE_MACHINE_TYPE_MISMATCH`.
 
-### 1.7 `after` = cauda de `WaitForExit`
+### 1.7 `after` = `Process.Kill` (correção 2026-10-21)
 
-Espera infinita + leitura de exit-code com `0x103` = **`STILL_ACTIVE`** +
-exceção montada com `GetLastWin32Error` (thread `+0xF8`) → cara de
-`Win32Exception`.
+A leitura anterior (“cauda de `WaitForExit`”) estava errada. O acesso pedido é
+`0x1001` = `PROCESS_TERMINATE | PROCESS_QUERY_LIMITED_INFORMATION` (não inclui
+`SYNCHRONIZE`), e o segundo argumento `0xffffffff` é o **exit code** passado ao
+`TerminateProcess`, não um timeout. O ramo `GetLastError == 5`
+(`ERROR_ACCESS_DENIED`) + `GetExitCodeProcess != 0x103` (`STILL_ACTIVE`) é o
+tratamento de “já morreu” do `Kill`. Evidência de assembly:
+`0x1801b57d0` → `0x1801af1a0` → `TerminateProcess(handle, -1)`.
 
 ### 1.8 Notificação ao shell
 

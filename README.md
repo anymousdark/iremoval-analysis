@@ -42,6 +42,9 @@ Workspace de engenharia reversa estática do pacote
 | 12 | `docs/12-correcao-entropia.md` — **Correção**: a "região encriptada de 13 MB" não existe |
 | 13 | `docs/13-protecao-empacotador.md` — Camada de proteção (empacotador/ofuscador) e imports reais |
 | 14 | `docs/14-relatorio-defensivo.md` — Relatório defensivo: proteções do binário e deteção (IOCs, YARA) |
+| 15 | `docs/15-revisao-bcl-process.md` — Revisão: o "dispatcher" é o `System.Diagnostics.Process` |
+| 16 | `docs/16-acervo-bruto.md` — Acervo bruto completo (Release) |
+| 17 | `docs/17-estado-da-investigacao.md` — Consolidação: provas, correções, lacunas e próximos passos |
 
 ---
 

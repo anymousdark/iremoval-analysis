@@ -76,9 +76,11 @@ após o dump). Extração total: 28.616 strings interessantes únicas contra
 
 Novidades reais (o resto é ruído CLR/WPF/DirectX):
 
-- **URLs montadas por concatenação**: `https://iremovalpro.com/Payax0.ph`,
-  `…/auth3.ph`, `…/iact9.ph`, `…/mf6.ph`, `…/pub.ph` — fragmentos `.ph`
-  (sem o `p` final) = prova de montagem em runtime (ofuscação de strings).
+- **URLs (correção 2026-10-21)**: os fragmentos `.ph` (sem o `p` final) são
+  **artefacto de extracção**, não prova de concatenação em runtime. Os
+  literais completos estão em `.rdata` e no dump (`07` §1, `notes/02` §7);
+  o que o dump prova é a existência de 26 275 strings novas em runtime, não a
+  montagem das URLs.
 - Texto de UI só visível em runtime: `"Please click Jailbreak button on
   the left or try to reconnect the jailbroken device"`.
 - Stubs P/Invoke (`Action`/`SetCallbacks`/`SetWinInfo`, `C834A786`)

@@ -7,13 +7,14 @@ Pseudocode em `decompiled/dispatcher-all/` (`get_context`, `configure`,
 
 > **Revisão 2026-10-16 (ver `15`):** as funções nomeadas são internos do
 > `System.Diagnostics.Process` (BCL): `configure` = `EnsureState`, `submit` =
-> `Process.Start(ProcessStartInfo)`, `after` = cauda de `WaitForExit`.
-> O objeto `0x180839620` ≈ `Process` (`+0x20` = `MachineName`). As 6 strings
-> de exceção estão em §6.
+> `Process.Start(ProcessStartInfo)`, `after` = **`Process.Kill`** (correção de
+> 2026-10-21; a leitura anterior dizia `WaitForExit`). O objeto `0x180839620`
+> ≈ `Process` (`+0x20` = `MachineName`). As 6 strings de exceção estão em §6.
 
 > Ciclo de vida de uma operação: `get_context()` aloca o contexto →
 > `configure(ctx, flags)` arma a state machine → `submit(job)` enfileira e
-> despacha → `after(...)` espera e levanta exceção gerenciada em caso de falha.
+> despacha → `after(...)` **mata o processo** e levanta exceção gerenciada em
+> caso de falha.
 
 ---
 
@@ -71,31 +72,34 @@ opcode 1, ver `03` §5).
 
 ---
 
-## 4. `after` — espera INFINITA e exceção HResult (`0x1801b57d0`, 202 bytes)
+## 4. `after` — `Process.Kill` e exceção HResult (`0x1801b57d0`, 202 bytes)
 
 ```c
-plVar6 = FUN_1801b6d70(param_1, 0x1001, 0);
-iVar5 = (*(plVar6 + 0x30))(plVar6);          // poll
+plVar6 = FUN_1801b6d70(param_1, 0x1001, 0);   // PROCESS_TERMINATE | QUERY_LIMITED_INFORMATION
+iVar5 = (*(plVar6 + 0x30))(plVar6);           // handle válido/estado
 if (iVar5 == 0) {
-    iVar5 = func_0x0001801af1a0(plVar6, 0xffffffff);   // espera INFINITA
+    iVar5 = func_0x0001801af1a0(plVar6, 0xffffffff);   // TerminateProcess(handle, -1)
     ...
     *(lVar2 + 0x48) = 0x80131500;                     // HResult
     func_0x00018000c720(lVar2 + 8, uVar4);            // inner
     *(lVar2 + 0x48) = 0x80131501;
     *(lVar2 + 0x48) = 0x80004005;                     // E_FAIL
     ...
-    if (iVar5 == 5) { ... if (aiStack_28[0] != 0x103) goto fim; }  // 0x103 = STILL_ACTIVE
+    if (iVar5 == 5) { ... if (aiStack_28[0] != 0x103) goto fim; }  // ERROR_ACCESS_DENIED + STILL_ACTIVE
     func_0x00018000cfe0(lVar2);                       // throw
     swi(3); (*pcVar1)();                              // __debugbreak
 }
 (*pcRam...eec0)(plVar6);                              // cleanup via helper do runtime
 ```
 
-- `0xffffffff` = espera sem timeout (padrão `WaitForSingleObject INFINITE`).
+- `0x1001` = `PROCESS_TERMINATE | PROCESS_QUERY_LIMITED_INFORMATION`; não
+  inclui `SYNCHRONIZE`, logo não é `WaitForExit`.
+- `0xffffffff` = **exit code** `-1` do `TerminateProcess`, não timeout.
 - HResults `.NET`: `0x80131500` (`COR_E_EXCEPTION`), `0x80131501`,
   `0x80004005` (`E_FAIL`) gravados em `+0x48` do objeto de exceção
   (tipo `0x18085d748`, inner em `+8`).
-- `0x103` = 259 = `STILL_ACTIVE`: o ramo verifica o exit code de thread.
+- `0x103` = 259 = `STILL_ACTIVE`: se o `TerminateProcess` falhar com
+  `ERROR_ACCESS_DENIED` (5), o código confirma se o processo já morreu.
 - Falhou tudo → `throw` + `__debugbreak()`. Terceira armadilha.
 
 ---
@@ -136,7 +140,7 @@ EXE --Action(opcode)--> motor ─┬─ opcodes 2..7/9: alloc job + submit()
 get_context: alloc 0x180839620, default+0x20, id+0xd0, ativo+0xe4
 configure:   bits 0x1/0x2/0x8/0x10/0x20 sobre +0x18/+0x20/+0x28/+0xd0/+0xe4/+0xe5/+0xe6
 submit:      prepare → enqueue → dispatch → ctx|0  (NULL → fail-fast + swi(3))
-after:       poll → wait INFINITE → HResult throw → swi(3) / cleanup runtime
+after:       poll → TerminateProcess(handle,-1) → HResult throw → swi(3) / cleanup runtime
 ```
 
 **Fechado (2026-10-16)** — as 6 strings foram extraídas do dump

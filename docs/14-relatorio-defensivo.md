@@ -32,6 +32,8 @@ Provas em `docs/13` (empacotador) e `docs/12` (correção de entropia):
 | **`.pdata` de decoy** | a secção chamada `.pdata` (RVA `0x1012000`) é uniforme (H≈7,94), sem xref; a exceção **real** (data dir #3) foi para `.CJz` (`0x231f880`) |
 | **Import table reduzida** | `IAT` (`.CFY`) com **1 função por DLL** (15 funções, 30 slots) — não é AOT normal |
 | **Ilhas de ruído** | blocos com estatística exata de bytes aleatórios intercalados no código |
+| **Matador de processos** | laço de ~2 s enumera e mata ferramentas de análise (`WireShark`, `Fiddler`, `python`, `ghidra`, `3uTools`, …); para sniffers de rede também auto-termina o iRemoval — `decompiled/gates/180541900_*` |
+| **Verificação de filtros USB** | lê `UPPERFILTERS` da classe USB e compara com filtros de captura — `decompiled/gates/18053a260_*` |
 | **Heap materializado** | secção `hydrated` sem bytes no ficheiro (conteúdo só em runtime) |
 | **Gate temporal** | diálogo ~10 s e `exit(1)` aos ~12 s sem licença (`docs/09`) |
 | **Anti-debug** | import de `KERNEL32!IsDebuggerPresent` |

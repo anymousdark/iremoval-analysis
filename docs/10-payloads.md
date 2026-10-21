@@ -161,8 +161,9 @@ node tools\scan-code-refs.js artifacts\patched\iremovalpro_engine.exe 0x18000100
 ## 11. Binários Apple embutidos (correção, 2026-10-16 noite)
 
 A varredura do §1 buscou apenas `MZ`/PE. Procurando magias Mach-O/FAT
-(`tools/find-macho.js`) aparecem **5 cabeçalhos Apple embutidos em `.rdata`**
-(bytes crus — 1 dylib FAT com 2 fatias + 3 executáveis):
+(`tools/find-macho.js`) aparecem **6 cabeçalhos Apple embutidos em `.rdata`**
+(bytes crus — 1 FAT + 2 fatias + 3 executáveis = 4 imagens; correção de
+2026-10-21, ver `17` §3.3):
 
 | # | fo | tipo | arch | iOS mín | tam. | identidade |
 |---|---|---|---|---|---|---|
@@ -199,8 +200,9 @@ Strings de faixa de versão presentes no motor (VAs de imagem; dump `ipro-01`):
 | `0x1807c07b8` | `Your Device iOS version is NOT supported! this tool only support iOS 17.0.1 till 18.5 and 18.6 (beta, beta2, beta3) and 26.0 (beta, beta2, beta3).restore your Device to one of those iOS versions and try again!!` | `0x18053eb22` |
 | `0x1807cad18` | `iOS Not` (fragmento) | `0x18053e585` |
 
-Os 4 sites caem numa **única função de roteamento de versão**
-(~`0x18053e5xx–0x18053ebxx`) — é aí que o motor decide o caminho por faixa:
+Os 4 sites caem na mesma função (`0x18053d720`), que é um **router de
+estado/mensagens** — as versões são ramos dessa função, não uma função
+isolada de roteamento de versão (ver `17` §4.3):
 
 - **15.0–16.6.1** — faixa do fluxo checkm8-era (compatível com o kit
   embutido do §11);
